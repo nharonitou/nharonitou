@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="assets/hero.svg" width="100%" alt="The Acropolis at night">
+  <img src="assets/hero.svg?v=2" width="100%" alt="The Acropolis at night">
 </p>
 
 <p align="center">
-  <img src="assets/intro.svg" width="100%" alt="Python, APIs, GitOps, Kubernetes, Security">
+  <img src="assets/intro.svg?v=2" width="100%" alt="Python, APIs, GitOps, Kubernetes, Security">
 </p>
 
 <p align="center">
