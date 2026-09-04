@@ -173,12 +173,12 @@ FLAG_BLUE, FLAG_WHITE = "#0d5eaf", "#f3f6fb"
 
 
 def flag(px, base_y, cols=14, rows=9, pole_h=26):
-    """The Greek flag on a pole, flying toward the temple with a wave travelling out from the hoist."""
+    """The Greek flag on a pole, hoist at the pole, flying to the right with a wave travelling out from the hoist."""
     out = [rect(px, base_y - pole_h * U, U, pole_h * U, MARBLE_SHADOW),
            rect(px - U / 2, base_y - (pole_h + 1) * U, 2 * U, U, MARBLE_LIGHT)]
     top = base_y - pole_h * U + U
     for i in range(cols):                                   # column i is i+1 units out from the pole
-        x = px - (i + 1) * U
+        x = px + (i + 1) * U
         strip = []
         for r in range(rows):
             if i < 5 and r < 5:                             # the canton with its cross
@@ -305,7 +305,7 @@ def city_lights(W, H, n, seed=5):
 def hero():
     W, H = 1200, 420
     plateau_y = H - PLATEAU * U
-    temple_cx, flag_x, moon_x, moon_y = 620, 900, 1010, 90
+    temple_cx, flag_x, moon_x, moon_y = 620, 848, 1010, 90
     avoid = [
         lambda x, y: (x - moon_x) ** 2 + (y - moon_y) ** 2 < 110**2,
         lambda x, y: 410 < x < 830 and y > 60,
