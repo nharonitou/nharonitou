@@ -12,14 +12,14 @@
 
 ## ✨ Highlights
 
-Deployed in 1st Advantage's GitHub over the last year:
+Deployed in 1st Advantage's GitHub:
 
 - ☸️ **Three K3s clusters** (dev, staging, production) run entirely from git with Flux. Image automation promotes every build from branch to staging to production, with no hand-applied manifests
 - 🛡️ **Policy as code**: Kyverno admission policies validated in CI before they reach a cluster, Kubescape posture scans, Pod Security and seccomp enforced, no plaintext Secrets anywhere
 - 🔗 **Supply chain**: secret scanning enforced at three layers, Trivy image scans, and Dependabot with grouped auto-merge across the whole fleet of repos
 - 🪪 **Identity**: named-user kubectl through Pinniped with GitHub teams mapped to cluster RBAC, GitHub sign-in in front of internal dev apps, Entra SSO for production apps
 - 📈 **Observability**: Prometheus, Alertmanager, Grafana, Loki, and Alloy, with alerts tuned so a page means something, plus a Teams and email notifier built on Microsoft Graph
-- 🐍 **Python apps and APIs**: a loan participation manager with audit trail and reporting, integrated with the banking core's APIs, a CI/CD dashboard, and a set of internal tools
+- 🐍 **Python apps and APIs**: a fleet of Flask and FastAPI web apps, batch processors, and integrations built on the banking core's SOAP and REST APIs and on Microsoft Graph: staff dashboards, file processing, reporting, and notifications
 - 🔁 **Business continuity**: an on-prem Gitea mirror of GitHub with Flux failover, and a tiered backup design across Proxmox Backup Server, etcd, and GitOps state
 
 ## 🧠 Languages & Tools

@@ -1,7 +1,7 @@
 """Build the profile README artwork.
 
-hero.svg   a pixel-art Acropolis at night: Parthenon, a Medusa bust with swaying
-           snakes, a broken column, cypresses, the lights of Athens, a pixel moon.
+hero.svg   a pixel-art Acropolis at night: Parthenon, a broken column, cypresses,
+           the lights of Athens, a pixel moon, and a few flying saucers.
 intro.svg  the spinning pixel Earth (from earth.gif) beside a short description.
 
 Both SVGs are self-contained: no fonts, scripts, or external images.
@@ -32,7 +32,6 @@ FAR_HILL = "#0e1528"
 CYPRESS, CYPRESS_LIGHT = "#0b2f22", "#155a3c"
 FLOOD, CITY = "#ffcf6b", "#f6d78a"
 MOON, MOON_CRATER = "#e9e6d6", "#c9c4ad"
-SNAKE, SNAKE_HEAD = "#2f9e5a", "#8af0b0"
 
 STYLE = f"""
 @keyframes tw {{ 0%,100% {{ opacity:.18 }} 50% {{ opacity:1 }} }}
@@ -42,6 +41,11 @@ STYLE = f"""
 .c {{ animation: cl 4s ease-in-out infinite; }}
 .g {{ animation: glow 7s ease-in-out infinite; }}
 .px {{ image-rendering: pixelated; image-rendering: crisp-edges; }}
+@keyframes blink {{ 0%,49% {{ opacity:1 }} 50%,100% {{ opacity:.15 }} }}
+.la {{ animation: blink .9s steps(1) infinite; }}
+.lb {{ animation: blink .9s steps(1) infinite; animation-delay:-.45s; }}
+@keyframes beam {{ 0%,100% {{ opacity:.18 }} 50% {{ opacity:.45 }} }}
+.beam {{ animation: beam 2.8s ease-in-out infinite; }}
 """
 
 
@@ -126,57 +130,41 @@ def temple(cx, base_y):
     return "\n".join(out)
 
 
-SNAKES = [
-    # (root x, root y above the head base, pixel offsets from the root going outward)
-    (-3, 8, [(0, 0), (0, 1), (-1, 2), (-1, 3), (-2, 4)]),
-    (-1, 8, [(0, 0), (0, 1), (0, 2), (-1, 3), (-1, 4)]),
-    (1, 8, [(0, 0), (0, 1), (0, 2), (1, 3), (1, 4)]),
-    (3, 8, [(0, 0), (0, 1), (1, 2), (1, 3), (2, 4)]),
-    (-4, 6, [(0, 0), (-1, 0), (-2, 1), (-3, 1), (-4, 2)]),
-    (4, 6, [(0, 0), (1, 0), (2, 1), (3, 1), (4, 2)]),
-    (-4, 4, [(0, 0), (-1, 0), (-2, 0), (-3, -1), (-4, -1)]),
-    (4, 4, [(0, 0), (1, 0), (2, 0), (3, -1), (4, -1)]),
-    (-2, 8, [(0, 0), (-1, 1), (-2, 1), (-3, 2), (-3, 3)]),
-    (2, 8, [(0, 0), (1, 1), (2, 1), (3, 2), (3, 3)]),
+UFO = [
+    "....######....",
+    "...########...",
+    "##############",
+    "#o##o##o##o##o",
+    "..##########..",
 ]
+UFO_COLOURS = {0: "#9be7ff", 1: "#5fb6e6", 2: "#d9dde6", 3: "#8a90a0", 4: "#4a5060"}
 
 
-def medusa(cx, base_y):
-    """A marble Medusa bust on a pedestal. The snakes sway, the eyes glow."""
-    out = []
+def ufo(u):
+    """A pixel flying saucer centred on (0, 0) with two alternating groups of lights."""
+    w, h = len(UFO[0]) * u, len(UFO) * u
+    body, la, lb = [], [], []
+    for y, row in enumerate(UFO):
+        for x, c in enumerate(row):
+            if c == ".":
+                continue
+            if c == "o":
+                (la if (x // 3) % 2 == 0 else lb).append(rect(x * u, y * u, u, u, "#ffe066" if (x // 3) % 2 == 0 else "#ff5c8a"))
+            else:
+                body.append(rect(x * u, y * u, u, u, UFO_COLOURS[y]))
+    return (f'<g transform="translate({-w/2:g},{-h/2:g})">{"".join(body)}'
+            f'<g class="la">{"".join(la)}</g><g class="lb">{"".join(lb)}</g></g>')
 
-    def R(x, y, w, h, fill):
-        out.append(rect(cx + x * U, base_y - (y + h) * U, w * U, h * U, fill))
 
-    R(-6, 0, 12, 2, STEP[0]); R(-5, 2, 10, 1, STEP[1])            # pedestal
-    R(-4, 3, 8, 6, MARBLE_MID); R(-3, 4, 6, 4, MARBLE_SHADOW)
-    R(-5, 9, 10, 1, MARBLE_LIGHT)
-    y = 10
-    R(-5, y, 10, 3, MARBLE_LIGHT); R(2, y, 3, 3, MARBLE_SHADOW)     # shoulders
-    R(-2, y + 3, 4, 2, MARBLE_MID)                                  # neck
-    hy = y + 5
-    for r, w in enumerate([6, 8, 8, 8, 8, 8, 8, 6]):                # head
-        R(-w / 2, hy + r, w, 1, MARBLE_LIGHT)
-        R(w / 2 - 2, hy + r, 2, 1, MARBLE_SHADOW)
-    R(-1, hy + 2, 3, 1, TYMPANUM)                                   # mouth
-    R(-3, hy + 5, 2, 1, TYMPANUM); R(1, hy + 5, 2, 1, TYMPANUM)     # brows
-    eyes = rect(cx - 3 * U, base_y - (hy + 5) * U, 2 * U, U, EARTH_GREEN) + rect(cx + 1 * U, base_y - (hy + 5) * U, 2 * U, U, EARTH_GREEN)
-    out.append(f'<g>{eyes}<animate attributeName="opacity" values="1;.35;1" dur="2.6s" repeatCount="indefinite"/></g>')
-    rng = random.Random(9)
-    for i, (rx, ry, pts) in enumerate(SNAKES):
-        ry += hy
-        px, py = cx + rx * U + U / 2, base_y - ry * U - U / 2
-        body = "".join(
-            rect(cx + (rx + dx) * U, base_y - (ry + dy + 1) * U, U, U, SNAKE_HEAD if j == len(pts) - 1 else SNAKE)
-            for j, (dx, dy) in enumerate(pts)
-        )
-        amp = rng.choice([8, 10, 12])
-        dur = rng.uniform(1.3, 2.1)
-        out.append(
-            f'<g><animateTransform attributeName="transform" type="rotate" values="{-amp} {px:g} {py:g};{amp} {px:g} {py:g};{-amp} {px:g} {py:g}" '
-            f'keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="{dur:.2f}s" begin="{-rng.uniform(0, 2):.2f}s" repeatCount="indefinite"/>{body}</g>'
-        )
-    return "\n".join(out)
+def ufos(plateau_y, column_x, moon_x, moon_y):
+    small, medium = ufo(3), ufo(4)
+    beam_h = plateau_y - 176 - 8
+    return f'''<g><animateMotion dur="26s" repeatCount="indefinite" path="M -60 62 Q 260 22 560 72 T 1260 52"/>{small}</g>
+<g><animateMotion dur="15s" repeatCount="indefinite" path="M {moon_x-120} {moon_y+6} A 120 38 0 1 1 {moon_x+120} {moon_y+6} A 120 38 0 1 1 {moon_x-120} {moon_y+6}"/>{medium}</g>
+<g transform="translate({column_x},176)">
+  <path class="beam" d="M -10 8 L 10 8 L 44 {beam_h} L -44 {beam_h} Z" fill="url(#beam)"/>
+  <g><animateTransform attributeName="transform" type="translate" values="0 -5;0 5;0 -5" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="2.8s" repeatCount="indefinite"/>{medium}</g>
+</g>'''
 
 
 def broken_column(cx, base_y):
@@ -298,16 +286,17 @@ def city_lights(W, H, n, seed=5):
 def hero():
     W, H = 1200, 420
     plateau_y = H - PLATEAU * U
-    temple_cx, statue_x, column_x, moon_x, moon_y = 650, 404, 900, 1010, 90
+    temple_cx, column_x, moon_x, moon_y = 650, 900, 1010, 90
     avoid = [
         lambda x, y: (x - moon_x) ** 2 + (y - moon_y) ** 2 < 110**2,
         lambda x, y: 440 < x < 860 and y > 60,
-        lambda x, y: 350 < x < 460 and y > 140,
     ]
     trees = "\n".join([
         cypress(190, H - acropolis_top(47) * U + 2, 9, 1),
         cypress(246, H - acropolis_top(61) * U + 2, 12, 2),
         cypress(290, H - acropolis_top(72) * U + 2, 13, 3),
+        cypress(392, plateau_y + 2, 12, 7),
+        cypress(430, plateau_y + 2, 9, 8),
         cypress(1000, H - acropolis_top(250) * U + 2, 13, 4),
         cypress(1048, H - acropolis_top(262) * U + 2, 11, 5),
         cypress(1096, H - acropolis_top(274) * U + 2, 8, 6),
@@ -321,6 +310,12 @@ def hero():
   </linearGradient>
   <radialGradient id="moonhalo"><stop offset="0" stop-color="{MOON}" stop-opacity=".35"/><stop offset=".5" stop-color="{MOON}" stop-opacity=".08"/><stop offset="1" stop-color="{MOON}" stop-opacity="0"/></radialGradient>
   <radialGradient id="flood" cx=".5" cy="1" r=".5"><stop offset="0" stop-color="{FLOOD}" stop-opacity=".42"/><stop offset=".5" stop-color="{FLOOD}" stop-opacity=".12"/><stop offset="1" stop-color="{FLOOD}" stop-opacity="0"/></radialGradient>
+  <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{EARTH_GREEN}" stop-opacity=".9"/><stop offset="1" stop-color="{EARTH_GREEN}" stop-opacity="0"/></linearGradient>
+  <linearGradient id="shine" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="120" y2="0" spreadMethod="reflect">
+    <stop offset="0" stop-color="{GREEK_BLUE}"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="{GREEK_BLUE}"/>
+    <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="240 0" dur="4s" repeatCount="indefinite"/>
+  </linearGradient>
+  <filter id="blur" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
   <clipPath id="card"><rect width="{W}" height="{H}" rx="16"/></clipPath>
 </defs>
 <g clip-path="url(#card)">
@@ -332,16 +327,27 @@ def hero():
 {rock(W, H)}
 {trees}
 {temple(temple_cx, plateau_y + 2)}
-{medusa(statue_x, plateau_y + 2)}
 {broken_column(column_x, plateau_y + 2)}
+{ufos(plateau_y, column_x, moon_x, moon_y)}
 {city_lights(W, H, 140)}
-<g font-family='{MONO}'>
-  <text x="60" y="84" font-size="30" font-weight="700" fill="{GREEK_BLUE}">Καλώς ήρθατε</text>
-  <rect x="62" y="96" width="170" height="4" fill="{GREEK_BLUE}" opacity=".6"/>
-</g>
+{welcome(60, 84)}
 </g>
 </svg>
 '''
+
+
+def welcome(x, y):
+    """Καλώς ήρθατε with a sweeping shine, a breathing glow, and pixel sparkles."""
+    sparks = []
+    for i, (sx, sy) in enumerate([(-14, -30), (58, -38), (140, -34), (196, -6), (236, -30), (100, 10)]):
+        sparks.append(
+            f'<g fill="{FG}" opacity="0">{rect(x+sx-1, y+sy-4, 2, 8, FG)}{rect(x+sx-4, y+sy-1, 8, 2, FG)}'
+            f'<animate attributeName="opacity" values="0;1;0" dur="2.4s" begin="{i*0.45:.2f}s" repeatCount="indefinite"/></g>'
+        )
+    return (f"<g font-family='{MONO}' font-size=\"30\" font-weight=\"700\">"
+            f'<text x="{x}" y="{y}" fill="{GREEK_BLUE}" filter="url(#blur)">Καλώς ήρθατε'
+            f'<animate attributeName="opacity" values=".3;.8;.3" dur="4s" repeatCount="indefinite"/></text>'
+            f'<text x="{x}" y="{y}" fill="url(#shine)">Καλώς ήρθατε</text>{"".join(sparks)}</g>')
 
 
 # ---------------------------------------------------------------- the intro card
