@@ -74,7 +74,7 @@ def earth(cx, cy, scale, halo_r):
   <circle class="g" r="{halo_r}" fill="url(#halo)"/>
   <g clip-path="url(#earthframe)">
     <image class="px" image-rendering="optimizeSpeed" x="{xs[0]:g}" y="{-fh/2*scale:g}" width="{fw*n*scale:g}" height="{fh*scale:g}" href="data:image/png;base64,{b64}">
-      <animate attributeName="x" values="{';'.join(f'{v:g}' for v in xs)}" dur="{n/10}s" calcMode="discrete" repeatCount="indefinite"/>
+      <animate attributeName="x" values="{';'.join(f'{v:g}' for v in xs)}" dur="{n/5}s" calcMode="discrete" repeatCount="indefinite"/>
     </image>
   </g>
 </g>''', f'<clipPath id="earthframe"><rect x="{-fw/2*scale:g}" y="{-fh/2*scale:g}" width="{fw*scale:g}" height="{fh*scale:g}"/></clipPath>'
@@ -158,12 +158,14 @@ def ufo(u):
 
 def ufos(plateau_y, column_x, moon_x, moon_y):
     small, medium = ufo(3), ufo(4)
-    beam_h = plateau_y - 176 - 8
+    beam_h = 96
+    roam = "M 900 176 C 760 110, 620 230, 420 170 S 150 70, 330 52 S 640 40, 820 96 S 1120 60, 1130 170 S 1030 240, 900 176"
+    loop = f"M {moon_x} {moon_y+30} C 1180 190, 980 300, 700 240 S 300 280, 180 200 S 120 60, 420 80 S 760 130, 900 60 S 1150 20, {moon_x} {moon_y+30}"
     return f'''<g><animateMotion dur="26s" repeatCount="indefinite" path="M -60 62 Q 260 22 560 72 T 1260 52"/>{small}</g>
-<g><animateMotion dur="15s" repeatCount="indefinite" path="M {moon_x-120} {moon_y+6} A 120 38 0 1 1 {moon_x+120} {moon_y+6} A 120 38 0 1 1 {moon_x-120} {moon_y+6}"/>{medium}</g>
-<g transform="translate({column_x},176)">
+<g><animateMotion dur="38s" repeatCount="indefinite" path="{loop}"/>{medium}</g>
+<g><animateMotion dur="44s" repeatCount="indefinite" path="{roam}"/>
   <path class="beam" d="M -10 8 L 10 8 L 44 {beam_h} L -44 {beam_h} Z" fill="url(#beam)"/>
-  <g><animateTransform attributeName="transform" type="translate" values="0 -5;0 5;0 -5" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="2.8s" repeatCount="indefinite"/>{medium}</g>
+  <g><animateTransform attributeName="transform" type="translate" values="0 -4;0 4;0 -4" keyTimes="0;.5;1" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" dur="2.8s" repeatCount="indefinite"/>{medium}</g>
 </g>'''
 
 
@@ -380,24 +382,25 @@ def welcome(x, y):
 # ---------------------------------------------------------------- the intro card
 
 HEADLINE = "Python · APIs · GitOps · Kubernetes"
-PILLS = ["K3s", "Flux", "Kyverno", "Flask", "FastAPI", "GitHub Actions", "Prometheus"]
+PILLS = [["Flask", "FastAPI", "K3s", "Flux", "GitHub Actions"], ["Prometheus", "Grafana", "Proxmox", "Microsoft Graph"]]
 
 
 def intro():
     W, H = 1200, 250
     ex, ey = 150, H / 2
     globe, frame = earth(ex, ey, 1.3, 150)
-    avoid = [lambda x, y: (x - ex) ** 2 + (y - ey) ** 2 < 125**2, lambda x, y: 300 < x < 1150 and 80 < y < 190]
+    avoid = [lambda x, y: (x - ex) ** 2 + (y - ey) ** 2 < 125**2, lambda x, y: 300 < x < 1150 and 70 < y < 220]
     pills = []
-    x = 320
-    for i, label in enumerate(PILLS):
-        w = len(label) * 9.4 + 26
-        colour = [GREEK_BLUE, GREEN][i % 2]
-        pills.append(
-            f'<rect x="{x}" y="148" width="{w:g}" height="32" rx="16" fill="{PANEL}" stroke="{BORDER}"/>'
-            f'<text x="{x + w/2:g}" y="169" font-size="15" text-anchor="middle" fill="{colour}">{label}</text>'
-        )
-        x += w + 12
+    for r, row in enumerate(PILLS):
+        x, y = 320, 136 + r * 42
+        for i, label in enumerate(row):
+            w = len(label) * 9.4 + 26
+            colour = [GREEK_BLUE, GREEN][(i + r) % 2]
+            pills.append(
+                f'<rect x="{x}" y="{y}" width="{w:g}" height="32" rx="16" fill="{PANEL}" stroke="{BORDER}"/>'
+                f'<text x="{x + w/2:g}" y="{y + 21}" font-size="15" text-anchor="middle" fill="{colour}">{label}</text>'
+            )
+            x += w + 12
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" role="img" aria-label="intro">
 <title>intro</title>
 <style>{STYLE}</style>
@@ -414,7 +417,7 @@ def intro():
 {stars(90, W, H, avoid, seed=21)}
 {globe}
 <g font-family='{MONO}'>
-  <text x="320" y="120" font-size="32" font-weight="700" fill="{FG}">{HEADLINE}</text>
+  <text x="320" y="106" font-size="32" font-weight="700" fill="{FG}">{HEADLINE}</text>
   {"".join(pills)}
 </g>
 </g>
