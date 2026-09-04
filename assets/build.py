@@ -1,6 +1,6 @@
 """Build the profile README artwork.
 
-hero.svg   a pixel-art Acropolis at night: Parthenon, a broken column, cypresses,
+hero.svg   a pixel-art Acropolis at night: Parthenon, the Greek flag, cypresses,
            the lights of Athens, a pixel moon, and a few flying saucers.
 intro.svg  the spinning pixel Earth (from earth.gif) beside a short description.
 
@@ -156,7 +156,7 @@ def ufo(u):
             f'<g class="la">{"".join(la)}</g><g class="lb">{"".join(lb)}</g></g>')
 
 
-def ufos(plateau_y, column_x, moon_x, moon_y):
+def ufos(moon_x, moon_y):
     small, medium = ufo(3), ufo(4)
     beam_h = 96
     roam = "M 900 176 C 760 110, 620 230, 420 170 S 150 70, 330 52 S 640 40, 820 96 S 1120 60, 1130 170 S 1030 240, 900 176"
@@ -169,15 +169,29 @@ def ufos(plateau_y, column_x, moon_x, moon_y):
 </g>'''
 
 
-def broken_column(cx, base_y):
-    out = []
+FLAG_BLUE, FLAG_WHITE = "#0d5eaf", "#f3f6fb"
 
-    def R(x, y, w, h, fill):
-        out.append(rect(cx + x * U, base_y - (y + h) * U, w * U, h * U, fill))
 
-    R(-4, 0, 8, 2, STEP[1]); R(-3, 2, 6, 5, MARBLE_MID); R(1, 2, 2, 5, MARBLE_SHADOW)
-    R(-3, 7, 4, 1, MARBLE_LIGHT); R(-3, 8, 2, 1, MARBLE_LIGHT)
-    R(4, 0, 5, 2, MARBLE_SHADOW); R(5, 2, 3, 1, MARBLE_MID)         # a fallen drum
+def flag(px, base_y, cols=14, rows=9, pole_h=26):
+    """The Greek flag on a pole, flying toward the temple with a wave travelling out from the hoist."""
+    out = [rect(px, base_y - pole_h * U, U, pole_h * U, MARBLE_SHADOW),
+           rect(px - U / 2, base_y - (pole_h + 1) * U, 2 * U, U, MARBLE_LIGHT)]
+    top = base_y - pole_h * U + U
+    for i in range(cols):                                   # column i is i+1 units out from the pole
+        x = px - (i + 1) * U
+        strip = []
+        for r in range(rows):
+            if i < 5 and r < 5:                             # the canton with its cross
+                colour = FLAG_WHITE if (i == 2 or r == 2) else FLAG_BLUE
+            else:
+                colour = FLAG_BLUE if r % 2 == 0 else FLAG_WHITE
+            strip.append(rect(x, top + r * U, U, U, colour))
+        amp = round(4 * (i + 1) / cols, 1)
+        out.append(
+            f'<g><animateTransform attributeName="transform" type="translate" values="0 0;0 {-amp};0 0;0 {amp};0 0" '
+            f'keyTimes="0;.25;.5;.75;1" calcMode="spline" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1;.4 0 .6 1" '
+            f'dur="1.3s" begin="{-i*0.07:.2f}s" repeatCount="indefinite"/>{"".join(strip)}</g>'
+        )
     return "\n".join(out)
 
 
@@ -291,17 +305,18 @@ def city_lights(W, H, n, seed=5):
 def hero():
     W, H = 1200, 420
     plateau_y = H - PLATEAU * U
-    temple_cx, column_x, moon_x, moon_y = 650, 900, 1010, 90
+    temple_cx, flag_x, moon_x, moon_y = 620, 900, 1010, 90
     avoid = [
         lambda x, y: (x - moon_x) ** 2 + (y - moon_y) ** 2 < 110**2,
-        lambda x, y: 440 < x < 860 and y > 60,
+        lambda x, y: 410 < x < 830 and y > 60,
+        lambda x, y: 830 < x < 912 and y > 150,
     ]
     trees = "\n".join([
         cypress(190, H - acropolis_top(47) * U + 2, 9, 1),
         cypress(246, H - acropolis_top(61) * U + 2, 12, 2),
         cypress(290, H - acropolis_top(72) * U + 2, 13, 3),
         cypress(392, plateau_y + 2, 12, 7),
-        cypress(430, plateau_y + 2, 9, 8),
+        cypress(410, plateau_y + 2, 9, 8),
         cypress(1000, H - acropolis_top(250) * U + 2, 13, 4),
         cypress(1048, H - acropolis_top(262) * U + 2, 11, 5),
         cypress(1096, H - acropolis_top(274) * U + 2, 8, 6),
@@ -332,8 +347,8 @@ def hero():
 {rock(W, H)}
 {trees}
 {temple(temple_cx, plateau_y + 2)}
-{broken_column(column_x, plateau_y + 2)}
-{ufos(plateau_y, column_x, moon_x, moon_y)}
+{flag(flag_x, plateau_y + 2)}
+{ufos(moon_x, moon_y)}
 {city_lights(W, H, 140)}
 {welcome(60, 84)}
 </g>
