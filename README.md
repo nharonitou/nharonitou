@@ -38,5 +38,3 @@ Deployed in 1st Advantage's GitHub:
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/output/github-snake.svg">
   <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/output/github-snake.svg" width="100%" alt="contribution snake">
 </picture>
-
-<p align="center"><sub>the earth is spinning. clusters are green.</sub></p>
