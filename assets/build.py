@@ -331,11 +331,6 @@ def hero():
   <radialGradient id="moonhalo"><stop offset="0" stop-color="{MOON}" stop-opacity=".35"/><stop offset=".5" stop-color="{MOON}" stop-opacity=".08"/><stop offset="1" stop-color="{MOON}" stop-opacity="0"/></radialGradient>
   <radialGradient id="flood" cx=".5" cy="1" r=".5"><stop offset="0" stop-color="{FLOOD}" stop-opacity=".42"/><stop offset=".5" stop-color="{FLOOD}" stop-opacity=".12"/><stop offset="1" stop-color="{FLOOD}" stop-opacity="0"/></radialGradient>
   <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{EARTH_GREEN}" stop-opacity=".9"/><stop offset="1" stop-color="{EARTH_GREEN}" stop-opacity="0"/></linearGradient>
-  <linearGradient id="shine" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="120" y2="0" spreadMethod="reflect">
-    <stop offset="0" stop-color="{GREEK_BLUE}"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="{GREEK_BLUE}"/>
-    <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="240 0" dur="4s" repeatCount="indefinite"/>
-  </linearGradient>
-  <filter id="blur" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
   <clipPath id="card"><rect width="{W}" height="{H}" rx="16"/></clipPath>
 </defs>
 <g clip-path="url(#card)">
@@ -350,24 +345,9 @@ def hero():
 {flag(flag_x, plateau_y + 2)}
 {ufos(moon_x, moon_y)}
 {city_lights(W, H, 140)}
-{welcome(60, 84)}
 </g>
 </svg>
 '''
-
-
-def welcome(x, y):
-    """Καλώς ήρθατε with a sweeping shine, a breathing glow, and pixel sparkles."""
-    sparks = []
-    for i, (sx, sy) in enumerate([(-14, -30), (58, -38), (140, -34), (196, -6), (236, -30), (100, 10)]):
-        sparks.append(
-            f'<g fill="{FG}" opacity="0">{rect(x+sx-1, y+sy-4, 2, 8, FG)}{rect(x+sx-4, y+sy-1, 8, 2, FG)}'
-            f'<animate attributeName="opacity" values="0;1;0" dur="2.4s" begin="{i*0.45:.2f}s" repeatCount="indefinite"/></g>'
-        )
-    return (f"<g font-family='{MONO}' font-size=\"30\" font-weight=\"700\">"
-            f'<text x="{x}" y="{y}" fill="{GREEK_BLUE}" filter="url(#blur)">Καλώς ήρθατε'
-            f'<animate attributeName="opacity" values=".3;.8;.3" dur="4s" repeatCount="indefinite"/></text>'
-            f'<text x="{x}" y="{y}" fill="url(#shine)">Καλώς ήρθατε</text>{"".join(sparks)}</g>')
 
 
 # ---------------------------------------------------------------- the intro card
