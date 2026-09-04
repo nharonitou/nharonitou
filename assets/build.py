@@ -346,7 +346,7 @@ def hero():
 
 # ---------------------------------------------------------------- the intro card
 
-HEADLINE = "Python · APIs · GitOps · Kubernetes · Security"
+HEADLINE = "Python · APIs · GitOps · Kubernetes"
 PILLS = ["K3s", "Flux", "Kyverno", "Flask", "FastAPI", "GitHub Actions", "Prometheus"]
 
 
@@ -381,7 +381,7 @@ def intro():
 {stars(90, W, H, avoid, seed=21)}
 {globe}
 <g font-family='{MONO}'>
-  <text x="320" y="118" font-size="28" font-weight="700" fill="{FG}">{HEADLINE}</text>
+  <text x="320" y="120" font-size="32" font-weight="700" fill="{FG}">{HEADLINE}</text>
   {"".join(pills)}
 </g>
 </g>
