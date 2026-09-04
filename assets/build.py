@@ -191,13 +191,40 @@ def cypress(x, base_y, h_units, seed):
     return "\n".join(out)
 
 
-def moon(cx, cy, r=9):
+MOON_DARK = "#232636"
+CRATERS = [(-4, -3, 2), (2, 1, 3), (-1, 4, 2), (4, -5, 1), (-6, 2, 1)]
+
+
+def moon(cx, cy, r=9, frames=24, cycle="60s"):
+    """A pixel moon that runs through its phases. Frame 0 is full; the shadow then
+    creeps in from the right (waning) and light returns from the right (waxing)."""
     out = [f'<circle class="g" cx="{cx}" cy="{cy}" r="{r*U*2.4:g}" fill="url(#moonhalo)"/>']
-    for dy in range(-r, r + 1):
+    for dy in range(-r, r + 1):                                  # the unlit disc
         hw = int(math.sqrt(r * r - dy * dy))
-        out.append(rect(cx - hw * U, cy + dy * U, 2 * hw * U, U, MOON))
-    for dx, dy, w in [(-4, -3, 2), (2, 1, 3), (-1, 4, 2), (4, -5, 1), (-6, 2, 1)]:
-        out.append(rect(cx + dx * U, cy + dy * U, w * U, U, MOON_CRATER))
+        out.append(rect(cx - hw * U, cy + dy * U, 2 * hw * U, U, MOON_DARK))
+    for k in range(frames):
+        theta = math.pi + 2 * math.pi * k / frames
+        lit = []
+        for dy in range(-r, r + 1):
+            hw = int(math.sqrt(r * r - dy * dy))
+            if theta < 2 * math.pi:                              # waning: lit on the left
+                x0, x1 = -hw, round(-hw * math.cos(theta))
+            else:                                                # waxing: lit on the right
+                x0, x1 = round(hw * math.cos(theta)), hw
+            if x1 > x0:
+                lit.append(rect(cx + x0 * U, cy + dy * U, (x1 - x0) * U, U, MOON))
+                for ex, ey, ew in CRATERS:
+                    if ey == dy:
+                        a, b = max(ex, x0), min(ex + ew, x1)
+                        if b > a:
+                            lit.append(rect(cx + a * U, cy + dy * U, (b - a) * U, U, MOON_CRATER))
+        t0, t1 = k / frames, (k + 1) / frames
+        keys = f'0;{t0:.4f};{t1:.4f}' if k < frames - 1 else f'0;{t0:.4f}'
+        vals = "0;1;0" if k < frames - 1 else "0;1"
+        if k == 0:
+            keys, vals = f'0;{t1:.4f}', "1;0"
+        out.append(f'<g opacity="{1 if k == 0 else 0}"><animate attributeName="opacity" values="{vals}" keyTimes="{keys}" '
+                   f'calcMode="discrete" dur="{cycle}" repeatCount="indefinite"/>{"".join(lit)}</g>')
     return "\n".join(out)
 
 
