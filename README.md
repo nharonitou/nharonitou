@@ -12,7 +12,7 @@ Deployed in 1st Advantage's GitHub:
 
 - ☸️ **Three K3s clusters** (dev, staging, production) run entirely from git with Flux. Image automation promotes every build from branch to staging to production, with no hand-applied manifests
 - 🐍 **Python apps and APIs**: a fleet of Flask and FastAPI web apps, batch processors, and integrations built on the banking core's SOAP and REST APIs and on Microsoft Graph: staff dashboards, file processing, reporting, and notifications
-- 🧩 **Sixteen repos on one standard**: shared CI workflows, the same repo layout and agent conventions everywhere, and one deploy path from branch build to production
+- 🧩 **17 repos (and counting) on one standard**: shared CI workflows, the same repo layout and agent conventions everywhere, and one deploy path from branch build to production
 - 🖥️ **CI/CD dashboard** that shows every repo's builds, promotions, and what is running on each cluster in one place
 - 📬 **Notifier service** on Microsoft Graph: Teams messages and email with attachments, used by the apps for alerts and reports
 - 📈 **Observability**: Prometheus, Alertmanager, Grafana, Loki, and Alloy, with alerts tuned so a page means something
