@@ -26,12 +26,6 @@
   </picture>
 </p>
 
-## 📊 GitHub Stats
-
-<p align="center">
-  <img src="https://streak-stats.demolab.com/?user=nharonitou&theme=github-dark-blue&hide_border=true&background=0d1117" alt="streak">
-</p>
-
 ## 🐍 Contribution Snake
 
 <picture>
