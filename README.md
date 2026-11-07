@@ -10,20 +10,22 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-dark.svg">
-    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-light.svg" width="400" alt="GitHub contribution statistics">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-dark.svg?v=classic1">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-light.svg?v=classic1" width="450" alt="GitHub contribution statistics">
   </picture>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-dark.svg">
-    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-light.svg" width="400" alt="Most used languages weighted by commits">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-dark.svg?v=classic1">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-light.svg?v=classic1" width="350" alt="Most used languages weighted by commits">
+  </picture>
+</p>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/contributions-dark.svg?v=classic1">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/contributions-light.svg?v=classic1" width="450" alt="Notable public pull requests">
   </picture>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/contributions-dark.svg">
-    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/contributions-light.svg" width="400" alt="Notable public pull requests">
-  </picture>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-dark.svg">
-    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-light.svg" width="400" alt="Weekly contribution rhythm">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-dark.svg?v=classic1">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-light.svg?v=classic1" width="350" alt="Weekly contribution rhythm">
   </picture>
 </p>
 

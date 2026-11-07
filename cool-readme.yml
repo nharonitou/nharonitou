@@ -1,12 +1,12 @@
 user: nharonitou
 cards: [summary, languages, contributions, weekly]
-style: oled
-matrix: false
-color: theme
+style: classic
 include:
   private: true
   orgs: true
 theme:
+  background: transparent
+  border: false
   animations: true
 summary:
   ring: github
