@@ -1,0 +1,14 @@
+user: nharonitou
+cards: [summary, languages, contributions, weekly]
+style: oled
+matrix: false
+color: theme
+include:
+  private: true
+  orgs: true
+theme:
+  animations: true
+summary:
+  ring: github
+languages:
+  count: 6

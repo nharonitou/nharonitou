@@ -6,18 +6,26 @@
   <img src="assets/intro.svg" width="100%" alt="Python, APIs, GitOps, Kubernetes">
 </p>
 
-## ✨ Highlights
+## GitHub Activity
 
-Deployed in 1st Advantage's GitHub:
-
-- ☸️ **Three K3s clusters** (dev, staging, production) run entirely from git with Flux. Image automation promotes every build from branch to staging to production, with no hand-applied manifests
-- 🐍 **Python apps and APIs**: a fleet of Flask and FastAPI web apps, batch processors, and integrations built on the banking core's SOAP and REST APIs and on Microsoft Graph: staff dashboards, file processing, reporting, and notifications
-- 🧩 **17 repos (and counting) on one standard**: shared CI workflows, the same repo layout and agent conventions everywhere, and one deploy path from branch build to production
-- 🖥️ **CI/CD dashboard** that shows every repo's builds, promotions, and what is running on each cluster in one place
-- 📬 **Notifier service** on Microsoft Graph: Teams messages and email with attachments, used by the apps for alerts and reports
-- 📈 **Observability**: Prometheus, Alertmanager, Grafana, Loki, and Alloy, with alerts tuned so a page means something
-- 🧰 **Guardrails in CI and in the cluster**: Kyverno policies validated before they reach a cluster, secret scanning, Trivy image scans, Dependabot with grouped auto-merge, Pinniped for named-user kubectl, Entra SSO on the apps
-- 🔁 **Business continuity**: an on-prem Gitea mirror of GitHub with Flux failover, and a tiered backup design across Proxmox Backup Server, etcd, and GitOps state
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-dark.svg">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-light.svg" width="400" alt="GitHub contribution statistics">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-dark.svg">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-light.svg" width="400" alt="Most used languages weighted by commits">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/contributions-dark.svg">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/contributions-light.svg" width="400" alt="Notable public pull requests">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-dark.svg">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-light.svg" width="400" alt="Weekly contribution rhythm">
+  </picture>
+</p>
 
 ## 🧠 Languages & Tools
 
