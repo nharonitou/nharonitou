@@ -19,6 +19,10 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Check token access and language coverage
+        env:
+          CARDS_TOKEN: ${{ secrets.CARDS_TOKEN }}
+        run: python3 .github/scripts/check-card-access.py
       - uses: pedrocatalao/github-cool-readme@85ccef31ddd3911ab19e7227605e7d50b6c21fe8 # v1
         with:
           token: ${{ secrets.CARDS_TOKEN }}

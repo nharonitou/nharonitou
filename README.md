@@ -19,20 +19,11 @@
   </picture>
 </p>
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/contributions-dark.svg?v=classic2">
-    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/contributions-light.svg?v=classic2" width="450" alt="Notable public pull requests">
-  </picture>
+  <img src="assets/tools.svg" width="450" alt="Languages &amp; Tools: Python, Flask, FastAPI, Kubernetes, Docker, GitHub Actions, Git, Linux, Bash, Prometheus, Grafana, Azure, Nginx, VS Code">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-dark.svg?v=classic2">
     <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-light.svg?v=classic2" width="350" alt="Weekly contribution rhythm">
   </picture>
-</p>
-
-## 🧠 Languages & Tools
-
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=python,flask,fastapi,kubernetes,docker,githubactions,git,linux,bash,prometheus,grafana,azure,nginx,vscode&perline=7" alt="tools">
 </p>
 
 ## 📊 GitHub Stats

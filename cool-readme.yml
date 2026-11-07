@@ -1,5 +1,5 @@
 user: nharonitou
-cards: [summary, languages, contributions, weekly]
+cards: [summary, languages, weekly]
 style: classic
 include:
   private: true
