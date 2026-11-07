@@ -10,19 +10,19 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-dark.svg?v=classic2">
-    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-light.svg?v=classic2" width="450" alt="GitHub contribution statistics">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-dark.svg?v=42360342126">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/summary-light.svg?v=42360342126" width="450" alt="GitHub contribution statistics">
   </picture>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-dark.svg?v=classic2">
-    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-light.svg?v=classic2" width="350" alt="Most used languages weighted by commits">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-dark.svg?v=42360342126">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/languages-light.svg?v=42360342126" width="350" alt="Most used languages weighted by commits">
   </picture>
 </p>
 <p align="center">
   <img src="assets/tools.svg" width="450" alt="Languages &amp; Tools: Python, Flask, FastAPI, Kubernetes, Docker, GitHub Actions, Git, Linux, Bash, Prometheus, Grafana, Azure, Nginx, VS Code">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-dark.svg?v=classic2">
-    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-light.svg?v=classic2" width="350" alt="Weekly contribution rhythm">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-dark.svg?v=42360342126">
+    <img src="https://raw.githubusercontent.com/nharonitou/nharonitou/cards/weekly-light.svg?v=42360342126" width="350" alt="Weekly contribution rhythm">
   </picture>
 </p>
 
